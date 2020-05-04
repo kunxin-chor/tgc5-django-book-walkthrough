@@ -10,5 +10,23 @@
 </head>
 <body>
     <h1>Books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for b in all_books%}
+            <tr>
+                <td>{{b.title}}</td>
+                <td>{{b.ISBN}}</td>
+                <td>{{b.desc}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
 </body>
 </html>
