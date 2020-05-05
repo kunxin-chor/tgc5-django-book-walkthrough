@@ -92,7 +92,30 @@ def update_author(request, author_id):
             return(redirect(reverse(view_authors)))
     else:
         form = AuthorForm(instance=author)
-        
     return render(request, 'books/update_author.template.html', {
         'form': form
+    })
+
+
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+
+    if request.method == 'POST':
+        book.delete()
+        return redirect(reverse(index))
+
+    return render(request, 'books/delete_book.template.html', {
+        'book': book
+    })
+
+
+def delete_author(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+
+    if request.method == "POST":
+        author.delete()
+        return redirect(reverse(view_authors))
+
+    return render(request, 'books/delete_author.template.html', {
+        'author': author
     })

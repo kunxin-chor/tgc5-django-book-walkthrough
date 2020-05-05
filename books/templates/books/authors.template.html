@@ -9,7 +9,10 @@
 <body>
     <ul>
         {%for author in authors%}
-        <li>{{author.first_name}} {{author.last_name}} | <a href="{% url 'update_author_route' author_id=author.id %}">Edit</a> </li>
+        <li>{{author.first_name}} {{author.last_name}} | 
+            <a href="{% url 'update_author_route' author_id=author.id %}">Edit</a> | 
+            <a href="{% url 'delete_author_route' author_id=author.id %}">Delete</a>
+        </li>
         {%endfor%}
     </ul>
 </body>
