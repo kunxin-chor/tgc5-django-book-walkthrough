@@ -8,7 +8,9 @@
 </head>
 <body>
     <form method="POST">
-       {% include 'books/author_form.template.html' %}
+    {% csrf_token %}
+    {{ form.as_p}}
+    <input type="submit"/>
     </form>
 </body>
 </html>

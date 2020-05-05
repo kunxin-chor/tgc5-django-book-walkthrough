@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect, reverse
+from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from .models import Book, Author
 from .forms import BookForm, AuthorForm
 
@@ -62,3 +62,37 @@ def create_author(request):
             'form': create_author_form
         })
 
+
+def update_book(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse(index))
+        else:
+            return render(request, 'books/update_book.template.html', {
+                'form': form
+            })
+    else:
+        form = BookForm(instance=book)
+        return render(request, 'books/update_book.template.html', {
+            'form': form
+        })
+
+
+def update_author(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+
+    if request.method == 'POST':
+        form = AuthorForm(request.POST, instance=author)
+        if form.is_valid():
+            form.save()
+            return(redirect(reverse(view_authors)))
+    else:
+        form = AuthorForm(instance=author)
+        
+    return render(request, 'books/update_author.template.html', {
+        'form': form
+    })

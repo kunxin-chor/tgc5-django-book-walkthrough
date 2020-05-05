@@ -8,8 +8,8 @@
 </head>
 <body>
     <ul>
-        {%for a in authors%}
-        <li>{{a.first_name}} {{a.last_name}}</li>
+        {%for author in authors%}
+        <li>{{author.first_name}} {{author.last_name}} | <a href="{% url 'update_author_route' author_id=author.id %}">Edit</a> </li>
         {%endfor%}
     </ul>
 </body>

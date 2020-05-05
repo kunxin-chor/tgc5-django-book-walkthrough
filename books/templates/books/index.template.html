@@ -16,6 +16,7 @@
                 <th>Title</th>
                 <th>ISBN</th>
                 <th>Description</th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <td>{{b.title}}</td>
                 <td>{{b.ISBN}}</td>
                 <td>{{b.desc}}</td>
+                <td><a href="{% url 'update_book_route' book_id=b.id %}">Edit</a></td>
             </tr>
             {%endfor%}
         </tbody>
