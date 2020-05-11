@@ -19,7 +19,7 @@ Browse Books
         <tbody>
             {%for b in all_books%}
             <tr>
-                <td>{{b.title}}</td>
+                <td><a href="{% url 'view_book_details_route' book_id=b.id %}">{{b.title}}</a></td>
                 <td>{{b.ISBN}}</td>
                 <td>{{b.desc}}</td>
                 <td>

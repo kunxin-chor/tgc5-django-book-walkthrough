@@ -10,6 +10,7 @@ class Book(models.Model):
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
     authors = models.ManyToManyField('Author')
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    tags = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self):
         return self.title + " (" + self.ISBN + ")"
@@ -23,6 +24,13 @@ class Author(models.Model):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=255, blank=False)
+
+    def __str__(self):
+        return self.name
 
 
 class Genre(models.Model):

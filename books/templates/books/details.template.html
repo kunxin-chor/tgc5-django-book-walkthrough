@@ -1,0 +1,47 @@
+{% extends 'base.template.html' %}
+
+{%block title%}
+Book details: {{book.title}}
+{%endblock%}
+
+{% block content %}
+<article>
+    <h1>Book Title: {{book.title}}</h1>
+    <p>
+        ISBN: {{book.ISBN}}<br/>
+    </p>
+    <p>
+        Genre: {{book.genre.title}}
+    </p>
+
+    <p>
+        Tags: {%for t in book.tags.all %}
+            <span class="badge badge-pill badge-primary">{{t.name}}</span>
+        {%endfor%}
+    </p>
+
+    <p>
+        Authors: {%for a in book.authors.all %}
+            <span class="badge badge-pill badge-primary">{{a.first_name}} {{a.last_name}}</span>
+        {%endfor%}
+    </p>
+
+
+    <h2>Description</h2>
+    <section>
+        {{book.desc}}
+    </section>
+
+    <h2>Reviews</h2>
+    {% for review in book.review_set.all%}
+        <section class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{review.title}}</h3>
+                <div class="card-text">
+                    {{review.content}}
+                </div>
+            </div>
+        </section>
+    {% endfor%}
+</article>
+{% endblock %}

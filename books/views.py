@@ -121,3 +121,10 @@ def delete_author(request, author_id):
     return render(request, 'books/delete_author.template.html', {
         'author': author
     })
+
+
+def view_book_details(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    return render(request, 'books/details.template.html', {
+        'book': book
+    })
