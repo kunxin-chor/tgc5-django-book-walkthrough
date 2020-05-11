@@ -1,4 +1,5 @@
 {% extends 'base.template.html' %}
+{% load crispy_forms_tags %}
 
 {%block title%}
 Book details: {{book.title}}
@@ -31,6 +32,13 @@ Book details: {{book.title}}
     <section>
         {{book.desc}}
     </section>
+
+    <h2>Leave a review</h2>
+    <form method="POST" action="{% url 'create_review_route' book_id=book.id %}">
+        {% csrf_token %}
+        {{ review_form | crispy}}
+        <input type="submit"/>
+    </form>
 
     <h2>Reviews</h2>
     {% for review in book.review_set.all%}

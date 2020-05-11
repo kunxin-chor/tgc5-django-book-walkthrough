@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from .models import Book, Author
 from .forms import BookForm, AuthorForm
+from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required, permission_required
 
 
@@ -125,6 +126,8 @@ def delete_author(request, author_id):
 
 def view_book_details(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
+    review_form = ReviewForm()
     return render(request, 'books/details.template.html', {
-        'book': book
+        'book': book,
+        'review_form': review_form
     })
