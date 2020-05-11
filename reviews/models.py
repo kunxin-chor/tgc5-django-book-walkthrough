@@ -15,3 +15,11 @@ class Review(models.Model):
     def __str__(self):
         return self.title + " for book: " + self.book.title
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField(blank=False)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.content[0:100]

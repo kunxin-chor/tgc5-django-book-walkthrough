@@ -48,6 +48,7 @@ Book details: {{book.title}}
                 <div class="card-text">
                     {{review.content}}
                 </div>
+                <a href="{% url 'view_review_details_route' review_id=review.id %}" class="btn btn-primary btn-sm">View comments</a>
             </div>
         </section>
     {% endfor%}
