@@ -5,10 +5,10 @@ from .models import Book, Author
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'ISBN', 'desc', 'genre', 'authors')
+        fields = ('title', 'ISBN', 'desc', 'genre', 'authors', 'owner')
 
 
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = ('first_name', 'last_name', 'dob')
+        fields = ('first_name', 'last_name', 'dob', 'created_by')
