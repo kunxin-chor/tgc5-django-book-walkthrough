@@ -1,0 +1,20 @@
+{%extends 'base.template.html'%}
+
+{%block content %}
+{%for key, cart_item in cart.items %}
+<div class="card">
+    <div class="card-title">{{cart_item.title}}</div>
+    <div class="card-body">
+    <p>
+        <form method="POST" action="{% url 'update_cart_quantity_route' book_id=cart_item.id %}">
+        {%csrf_token%}
+        Quantity:<input name="qty" type="text" value="{{cart_item.qty}}" style="width:20px">
+        <input type="submit" class="btn btn-primary btn-sm" value="Update Quantity"/>
+        </form>
+        Cost: {{cart_item.cost}}
+    </p>
+    <a class="btn btn-danger btn-sm" href="{% url 'remove_from_cart_route' book_id=cart_item.id %}">Remove</a>
+    </div>
+</div>
+{%endfor%}
+{%endblock%}

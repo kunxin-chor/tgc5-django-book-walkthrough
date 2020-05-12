@@ -11,13 +11,23 @@
     <title>{%block title%}{%endblock%}</title>
   </head>
   <body>
+    {%if messages %}
+    {%for m in messages %}
+        <div class="alert alert-success">{{m}}</div>
+    {%endfor%}
+    {%endif%}
+
     <div class="container">
     {%if not request.resolver_match.url_name == 'account_login' %}
       <p>Currently logged in as: {{request.user}}</p>
         {% if not request.user.is_authenticated %}
-        <p><a href="{% url 'account_login' %}">Log in</a></p>
+        <p>
+            <a href="{% url 'account_login' %}">Log in</a>
+        </p>
         {% else %}
-        <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+        <p><a href="{% url 'account_logout' %}">Log Out</a> |
+            <a href="{% url 'view_cart_route' %}">Cart</a>
+        </p>
         {%endif%}
     {%endif%}
     {%block content%}{%endblock%}

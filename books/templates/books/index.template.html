@@ -1,4 +1,5 @@
 {% extends 'base.template.html'%}
+{% load crispy_forms_tags %}
 {%load static%}
 
 {%block title%}
@@ -7,6 +8,10 @@ Browse Books
 
 {%block content%}
 <h1>Books</h1>
+    <form method="GET">
+        {{ search_form | crispy}}
+        <input type="submit"/>
+    </form>
     <table class="table">
         <thead>
             <tr>
@@ -23,6 +28,7 @@ Browse Books
                 <td>{{b.ISBN}}</td>
                 <td>{{b.desc}}</td>
                 <td>
+                    <a href="{% url 'add_to_cart_route' book_id=b.id %}">Add to Cart</a>
                     <a href="{% url 'update_book_route' book_id=b.id %}">Edit</a>
                     <a href="{% url 'delete_book_route' book_id=b.id %}">Delete</a>
                 </td>

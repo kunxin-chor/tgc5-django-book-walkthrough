@@ -1,15 +1,36 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from .models import Book, Author
-from .forms import BookForm, AuthorForm
+from .forms import BookForm, AuthorForm, SearchBookForm
 from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required, permission_required
-
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
     books = Book.objects.all()
+    search_form = SearchBookForm(request.GET)
+
+    # always true
+    queries = ~Q(pk__in=[])
+
+    if request.GET:
+        if 'title' in request.GET and request.GET['title']:
+            queries = queries & Q(title__icontains=request.GET['title'])
+
+
+        if 'author' in request.GET and request.GET['author']:
+            queries = queries & (Q(authors__first_name__icontains=request.GET['author']) | Q(authors__last_name__icontains=request.GET['author']))
+
+
+        if 'genre' in request.GET and request.GET['genre']:
+            queries = queries & Q(genre__in=request.GET['genre'])
+
+    books = books.filter(queries)
+
+    print(books.query)
     return render(request, 'books/index.template.html', {
-        'all_books': books
+        'all_books': books,
+        'search_form': search_form
     })
 
 
