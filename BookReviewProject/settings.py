@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'BookReviewProject.urls'
@@ -164,4 +165,3 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 SIGNING_SECRET = os.environ.get("SIGNING_SECRET")
-print(SIGNING_SECRET)
