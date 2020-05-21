@@ -1,11 +1,32 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.http import HttpResponseForbidden
 from books.models import Book
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 
 SHOPPING_CART = "shopping_cart"
 
+def group_required(arg_name):
+    def decorator(view):
+        def wrapper(request, *args, **kwargs):
+            group_id = kwargs.get(arg_name)
+            user = request.user
+            if group_id in user.groups.values_list('id', flat=True):
+                return view(request, *args, **kwargs)
+            else:
+                messages.error(request, "You are not a customer")
+                return redirect(reverse('view_books_route'))
+        return wrapper
+    return decorator
+
 # Create your views here.
+@group_required('customer')
 def add_to_cart(request, book_id):
+
+    # if not request.user.groups.filter(name='customer').exists():
+    #     messages.error(request, "You are not a customer")
+    #     return redirect(reverse('view_books_route'))
+
     # open a file identified by the key 'shopping_cart' in the session (first argument)
     # if 'shopping_cart' is not found in the session, return an empty dictionary (second argument) 
     cart = request.session.get(SHOPPING_CART, {})

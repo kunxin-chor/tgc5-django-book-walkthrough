@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'books',
     'reviews',
     'cart',
-    'checkout'
+    'checkout',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -101,6 +102,7 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/books'
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 
 if "DEVELOPMENT" in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
